@@ -22,7 +22,5 @@ class User:
 
     def delete_user(self, user_id):
         users = mongo.db.user
-        print("*******",user_id)
         delte = users.delete_one({'_id': user_id})
-        print("**************************",delte.deleted_count)
         return users.delete_one({'_id': user_id})
