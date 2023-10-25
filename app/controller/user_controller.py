@@ -14,9 +14,8 @@ class UserController:
     def get_user_by_id(self, user_id):
         return self.model.get_user_by_id(user_id)
 
-    def update_user(self, user_id: ObjectId, user_data):
-        print("===========================",self.model.update_user(user_id,user_data))
-        return self.model.update_user(user_id, user_data)
+    def update_user(self, user_id, user_data):
+        return self.model.update_user(ObjectId(user_id), user_data)
 
-    def delete_user(self, user_id):
-        return self.model.delete_user(user_id)
+    def delete_user(self, user_id:ObjectId):
+        return self.model.delete_user(ObjectId(user_id))

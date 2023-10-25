@@ -16,10 +16,13 @@ def get_users():
 @user_bp.route('/users/<user_id>', methods=['GET'])
 def get_user(user_id):
     controller = UserController()
-    user_data = controller.get_user_by_id(user_id)
+    user_data = controller.get_user_by_id(ObjectId(user_id))
     # return render_template('user.html', user=user_data)
-    data = list(user_data)
-    return json.dumps(data,default=json_encoder_mongo)
+    # data = list(user_data)
+    # return(data)
+    # return("find one user")
+    # return json.dumps(data, default=json_encoder_mongo)
+    return json.dumps(user_data,default=json_encoder_mongo)
 
 @user_bp.route('/users', methods=['POST'])
 def create_user():
@@ -43,6 +46,6 @@ def update_user(user_id):
 @user_bp.route('/users/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
     controller = UserController()
-    controller.delete_user(ObjectId(user_id))
+    controller.delete_user(user_id)
     flash('User deleted successfully', 'success')
     return redirect(url_for('user.get_users'))
