@@ -24,3 +24,6 @@ class User:
         users = mongo.db.user
         delte = users.delete_one({'_id': user_id})
         return users.delete_one({'_id': user_id})
+    def get_user_by_email(self,email):
+        users = mongo.db.user
+        return users.find_one({'email':email})
