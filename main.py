@@ -11,9 +11,7 @@ app.config['JWT_SECRET_KEY'] = '38dd56f56d405e02ec0ba4be4607eaab'
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
 mongo.init_app(app)
 jwt = JWTManager(app)
-
 from app.routes.user_routes import user_bp
 app.register_blueprint(user_bp)
-
 if __name__ == "__main__":
     app.run(debug=True)

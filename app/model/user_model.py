@@ -27,3 +27,6 @@ class User:
     def get_user_by_email(self,email):
         users = mongo.db.user
         return users.find_one({'email':email})
+    def get_user_by_reset_token(self,token):
+        users = mongo.db.user
+        return users.find_one({'reset_token':token})
