@@ -54,8 +54,9 @@ def create_user():
     
     if not doc:
         controller.create_user(user)
-        flash('User created successfully', 'success')
-        return redirect(url_for('user.get_users'))
+        # flash('User created successfully', 'success')
+        # return redirect(url_for('user.get_users'))
+        return jsonify({'msg': 'Registration Successfull'}), 202
     else:
         return jsonify({'msg': 'Email already exists'}), 409
 
@@ -67,20 +68,23 @@ def update_user(user_id):
     # user_data = request.json
     controller.update_user(user_id, request.json)
     flash('User updated successfully', 'success')
-    return redirect(url_for('user.get_users'))
+    # return redirect(url_for('user.get_users'))
+    return jsonify({"msg":"Update Sucessfull"})
 
 @user_bp.route('/users/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
     controller = UserController()
     controller.delete_user(user_id)
-    flash('User deleted successfully', 'success')
-    return redirect(url_for('user.get_users'))
+    # flash('User deleted successfully', 'success')
+    # return redirect(url_for('user.get_users'))
+    return jsonify({"msg":"Delete Sucessfull"})
 
 @user_bp.route('/login',methods=['POST'])
 def login():
     controller = UserController()
     login_details = request.get_json()
-    token = controller.loginAuthentication(login_details)
-    print("########",token)
+    access_token = controller.loginAuthentication(login_details)
+    if access_token:
+        return jsonify({'access_token': access_token}), 200
     
-    return("login successfull")
+    return jsonify({'msg': 'Invalid email or password'}), 401
